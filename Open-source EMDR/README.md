@@ -1,5 +1,13 @@
 Concevoir du matériel d'EMDR libre et standardisé pour les praticiens de la psychologie.
 
+- Teinte des leds réglable parmi 16 millions de couleurs (Rouges, verts bleus, blancs, oranges, roses)
+- Durée de la scéance réglable
+- Presets définissables
+- Conçu & Fabriqué par nous en France, support technique compétent, nous ne sommes pas des vendeurs qui ne connaissent pas elur produit
+- Version DIY possible grâce au design open-source
+- Économe en énergie <0.5W, typiquement 0.1W
+- Durable et open-source, utilisation de composants standards pour une réparabilité et une réutilisabilité
+
 Si t'es chaud pour éditer un standard ouvert de machines EMDR vu que c'est toi qui m'en avait parlé j'aimerai bien tes insights sur:
 - usage mobile ou dans le cabinet du praticien généralement ?
 - la longueur 80cm ou 1m réglable ou pas ?
