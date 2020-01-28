@@ -19,3 +19,5 @@ Si t'es chaud pour éditer un standard ouvert de machines EMDR vu que c'est toi 
 - (piste pour moi c'est de consigner les microcontrôleurs si il y a une MàJ de firmware)
 
 J'avais commencé un petit document si tu as des commentaires: 
+
+https://nazmi.fr/journal/emdr-open-source
