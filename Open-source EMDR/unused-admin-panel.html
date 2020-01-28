@@ -1,0 +1,136 @@
+<style>
+
+#red{
+background-color:red;  }
+  #green{
+background-color:green;  }
+  #blue{
+background-color:blue;  }
+
+#content{
+  margin:30px;
+  text-align:center;}
+  
+  
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+
+  body {
+}
+h1, h2 {
+  display: inline-block;
+  background: #fff;
+}
+h1 {
+  font-size: 30px
+}
+h2 {
+  font-size: 20px;
+}
+span {
+  background: #fd0;
+}
+
+#presets button{background-color:gray;font-size:30px;}
+</style>
+
+
+<div id="content">
+<div id="presets">
+<button>Preset 1</button>
+<button>Preset 2</button>
+<button>Preset 3</button>
+<button>Preset 4</button>
+<button>Preset 5</button>
+<button>Preset +</button>
+</div>
+
+<div id="settings">
+
+
+<div class="blink">
+<p>This section defines the speed for each LED.</p>
+  <p>Blink delay: <span id="demo"></span> ms</p>
+  <input type="range" min="1" max="1000" value="1000" class="slider" id="myRange">
+    <p>Blink frequency: <span id="demo"></span> Hz</p>
+  <input type="range" min="0" max="1000" value="1" class="slider" id="myRange">
+</div>
+
+<div class="line">
+<p>This section defines the speed for the whole line (30 LEDs).</p>
+ <p>Main delay: <span id="demo"></span> s</p>
+  <input type="range" min="O.001" max="30" value="50" class="slider" id="myRange">
+  <p>Main frequency: <span id="demo"></span> Hz</p>
+  <input type="range" min="0.03" max="300" value="10" class="slider" id="myRange">
+</div>
+
+<div class="slidecontainer">
+<p>This section defines the brightness of the LEDs.</p>
+  <p>Brightness: <span id="demo"></span> %</p>
+  <input type="range" min="1" max="100" value="50" class="slider" id="color">
+</div>
+
+<div class="slidecontainer">
+<p>This section defines how much the LEDs will fade before they change state.</p>
+  <p>Fading: <span id="demo"></span> %</p>
+  <input type="range" min="1" max="100" value="50" class="slider" id="color">
+</div>
+
+
+<div class="slidecontainer">
+<p>This section defines the color of the line.</p>
+  <p>Color: <span id="demo"></span></p>
+  <input type="range" min="1" max="100" value="0" class="slider" id="red">
+  <input type="range" min="1" max="100" value="100" class="slider" id="green">
+  <input type="range" min="1" max="100" value="0" class="slider" id="blue">
+</div>
+
+<div class="slidecontainer">
+<p>This section defines the sound that's going to be played.</p>
+Sound:<br>
+<input type="file"></input>
+<br>Volume:<input type="range" min="1" max="100" value="100" class="slider" id="volume">
+</div>
+
+Timer
+
+<div class="slidecontainer">
+  <p>Name: <span id="demo"></span></p>
+  <input type="text">
+</div>
+
+<button>Preview ON/OFF</button>
+<button>Start | Pause</button>
+
+<button>Save</button>
+</div>
+</div>
