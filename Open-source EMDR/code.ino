@@ -36,16 +36,23 @@ ESP8266WebServer server(80);
 EmbAJAXOutputDriverESP8266 driver(&server);
 
 // Define the main elements of interest as variables, so we can access to them later in our sketch.
+
+//Activation des leds
+EmbAJAXCheckButton check("check", "Power");
+EmbAJAXMutableSpan check_d("check_d");
+
+// Sélecteur de couleurs
 EmbAJAXColorPicker color("color", 0, 255, 0);
 EmbAJAXMutableSpan color_d("color_d");
 char color_d_buf[BUFLEN];
 
-EmbAJAXSlider numen("numen", 0, 30,0);   // slider, from 0 to 500, initial value 400
+EmbAJAXSlider numen("numen", 0,15,0);   // slider, from 0 to 500, initial value 400
 EmbAJAXMutableSpan numen_d("numen_d");
 
 EmbAJAXSlider lumen("lum", 0, 100, 1);   // slider, from 0 to 500, initial value 400
 EmbAJAXMutableSpan lum_d("lum_d");
-EmbAJAXSlider blinkfreqs("tick", 1, 100, 100);   // slider, from 0 to 500, initial value 400
+
+EmbAJAXSlider blinkfreqs("tick", 1, 100, 20);   // slider, from 0 to 500, initial value 400
 EmbAJAXSlider blinkfreqm("tick", 50, 500, 100);
 EmbAJAXSlider blinkfreqf("tick", 500, 1000, 100);
 EmbAJAXMutableSpan tick_d("tick_d");
@@ -55,17 +62,20 @@ char tick_d_buf[BUFLEN];
 // static HTML. Note: MAKE_EmbAJAXPage is just a convenience macro around the EmbAJAXPage###>-class.
 MAKE_EmbAJAXPage(page, "EMDR Controller Page", "",
 
-  new EmbAJAXStatic("<h1>EMDR Panel V0.2</h1><p>Choose the color: "),
+  new EmbAJAXStatic("<h1>EMDR Panel V0.2</h1><p>Power: "),
+  &check,
+  new EmbAJAXStatic("</p><p>Choose the color:"),
   &color,
+  new EmbAJAXStatic("</p><p>Current color:"),
+  &color_d,
   new EmbAJAXStatic("</p><p>Brightness:"),
   &lumen,
+  new EmbAJAXStatic("</p><p>Current brightness:"),
   &lum_d,
   new EmbAJAXStatic("</p><p>Width:"),
   &numen,
   new EmbAJAXStatic("</p><p>Current number:"),
   &numen_d,
-  new EmbAJAXStatic("</p><p>Current color:"),
-  &color_d,
   new EmbAJAXStatic("</p><p>Blink frequency: <i>FAST</i>"),
   &blinkfreqs,
   &blinkfreqm,
@@ -107,6 +117,8 @@ void updateUI() {
   // Enabled / disable the slider. Note that you could simply do this inside the loop. However,
   // placing it here makes the client UI more responsive (try it).
   color_d.setValue(strncpy(color_d_buf, color.value(), BUFLEN));  // r, g, b, are also available, numerically.
+  check_d.setValue(check.isChecked() ? "checked" : "not checked");
+
 }
 
 void loop() {
@@ -122,6 +134,11 @@ void loop() {
   b = color.blue() / bright;
   minn = numen.intValue();
   maxx = 30 - minn;
+
+if(check.isChecked() == false){r = 0;
+g = 0;
+b = 0;}
+
 
 if(num < maxx){
   num1 = num - 1;
@@ -142,4 +159,5 @@ while(num > minn){
     }
 }
 }
+
 
