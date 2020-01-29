@@ -3,9 +3,17 @@
 #include <EmbAJAX.h>
 #define BUFLEN 30
 
+
+
 #include <DNSServer.h>
 const byte DNS_PORT = 53;
 DNSServer dnsServer;
+
+String Welcome = ""
+                      "<!DOCTYPE html><html><head><title>CaptivePortal</title></head><body>"
+                      "<h1>Hello World!</h1><p>This is a captive portal example. All requests will "
+                      "be redirected here.</p></body></html>";
+
 
  #include <FastLED.h>
     #define LED_PIN     13
@@ -16,6 +24,12 @@ DNSServer dnsServer;
     //int freq = 100;
     int tick = 1000;
     int lum = 100;
+    int minn = 0;
+    int maxx = 30;
+    float r = 0;
+    float g = 255;
+    float b = 0;
+    float bright = 1;
 
 // Set up web server, and register it with EmbAJAX
 ESP8266WebServer server(80);
@@ -25,6 +39,9 @@ EmbAJAXOutputDriverESP8266 driver(&server);
 EmbAJAXColorPicker color("color", 0, 255, 0);
 EmbAJAXMutableSpan color_d("color_d");
 char color_d_buf[BUFLEN];
+
+EmbAJAXSlider numen("numen", 0, 30,0);   // slider, from 0 to 500, initial value 400
+EmbAJAXMutableSpan numen_d("numen_d");
 
 EmbAJAXSlider lumen("lum", 0, 100, 1);   // slider, from 0 to 500, initial value 400
 EmbAJAXMutableSpan lum_d("lum_d");
@@ -43,6 +60,10 @@ MAKE_EmbAJAXPage(page, "EMDR Controller Page", "",
   new EmbAJAXStatic("</p><p>Brightness:"),
   &lumen,
   &lum_d,
+  new EmbAJAXStatic("</p><p>Width:"),
+  &numen,
+  new EmbAJAXStatic("</p><p>Current number:"),
+  &numen_d,
   new EmbAJAXStatic("</p><p>Current color:"),
   &color_d,
   new EmbAJAXStatic("</p><p>Blink frequency: <i>FAST</i>"),
@@ -65,7 +86,7 @@ void handlePage() {
 void setup() {
   // Example WIFI setup as an access point. Change this to whatever suits you, best.
   WiFi.mode(WIFI_AP);
-  WiFi.softAPConfig (IPAddress (192,168,4,1), IPAddress (192,168,1,1), IPAddress (255,255,255,0));
+  WiFi.softAPConfig (IPAddress (192,168,4,1), IPAddress (192,168,4,1), IPAddress (255,255,255,0));
   WiFi.softAP("EMDR_Marie", "12345678");
   // Tell the server to serve our EmbAJAX test page on root
   server.on("/", handlePage);
@@ -75,6 +96,10 @@ void setup() {
 
    dnsServer.start(DNS_PORT, "*", IPAddress (192,168,4,1));
 
+  // replay to all requests with same HTML
+    server.onNotFound([]() {
+    server.send(200, "text/html", Welcome);
+  });
     
 }
 
@@ -86,36 +111,35 @@ void updateUI() {
 
 void loop() {
   // handle network
-    dnsServer.processNextRequest();
+  dnsServer.processNextRequest();
   server.handleClient();
   // handle network. loopHook() simply calls server.handleClient(), in most but not all server implementations.
   driver.loopHook();
 
+  bright = lumen.intValue(); 
+  r = color.red() / bright;
+  g = color.green() / bright;
+  b = color.blue() / bright;
+  minn = numen.intValue();
+  maxx = 30 - minn;
 
-  float bright = lumen.intValue();
-  
-  float r = color.red() / bright;
-  float g = color.green() / bright;
-  float b = color.blue() / bright;
-  
-  if (num < 30){
-      num1 = num - 1;
-      leds[num] = CRGB(r, g, b);
-      leds[num1] = CRGB(0, 0, 0);
-      FastLED.show();
-      num++;
+if(num < maxx){
+  num1 = num - 1;
+  leds[num] = CRGB(r, g, b);
+  leds[num1] = CRGB(0, 0, 0);
+  FastLED.show();
+  num++;
+  delay(blinkfreqs.intValue());
     }
-      else{
-        
-       while(num > 0){ 
-        num1 = num - 1;
-        leds[num] = CRGB(0, 0, 0);
-        leds[num1] = CRGB(r, g, b);
-        FastLED.show();
-        num--;
-        delay(blinkfreqs.intValue());
-      }
+else{
+while(num > minn){ 
+       num1 = num - 1;
+       leds[num] = CRGB(0, 0, 0);
+       leds[num1] = CRGB(r, g, b);
+       FastLED.show();
+       num--;
+       delay(blinkfreqs.intValue());
     }
-          delay(blinkfreqs.intValue());
-
 }
+}
+
