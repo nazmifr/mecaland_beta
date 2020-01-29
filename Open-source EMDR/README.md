@@ -1,5 +1,25 @@
 Concevoir du matériel d'EMDR libre et standardisé pour les praticiens de la psychologie.
 
+# BOM
+- USB to TTL converter FTDI FT-232RL or CH340G
+- ESP8266 + Socket + female headers
+- 1m of RGB Adressable LEDs
+- 5V Power supply
+- AMS1117 3.3V Regulator
+- Soldering and splicing tools, prototype board or PCB
+
+# Software toolchain
+- Win, Mac or Lin PC with USB port
+- Arduino 1.8.11
+- ESP8266 Board Definitions
+- ESP8266WiFi, DNSServer, ESP8266WebServer, EmbAJAX Libraries
+
+# TODO
+
+- fixing the web portal that displaus gibberish (quick fix: disabled portal and go directly to 192.168.4.1 )
+- tactile & audio feedback
+
+
 - Teinte des leds réglable parmi 16 millions de couleurs (Rouges, verts bleus, blancs, oranges, roses)
 - Durée de la scéance réglable
 - Presets définissables
