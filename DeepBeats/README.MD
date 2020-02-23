@@ -1,4 +1,4 @@
-# DeepBeats, feel the basses deep inside of you
+# DeepBeats, feel the basses deep inside of you ( ͡° ͜ʖ ͡°)
 
 Have you ever wanted to feel the vibes of your favorite tunes even more? Bought a DAC, a bunch of speakers, still far from feeling the vibes?
 Try deepbeats, the first ever dildo-speaker. With it's top-of-the-line, state-of-the-art low-pass filter it triggers a 5V 3W vibrato-speaker that fits inside of you.
